@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:8.0
+    container_name: spotfyql-db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: spotfyql
+    volumes:
+      - mongo_data:/data/db
+
+
+#  flask-api:
+#    build: .
+#    container_name: flask_container
+#    ports:
+#      - "5000:5000"
+#    environment:
+#      MONGO_URI: mongodb://root:example@mongo:27017/playlist_db?authSource=admin
+#    volumes:
+#      - .:/app
+#    depends_on:
+#      - mongo
+
+volumes:
+    mongo_data:
