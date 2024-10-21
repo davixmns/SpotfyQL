@@ -2,13 +2,13 @@ from typing import List
 
 from pymongo.synchronous.database import Database
 
-from app.entities.playlist import Playlist
+from app.models.playlist import Playlist
 from app.repositories.playlist_repository import PlaylistRepository
 from app.repositories.song_repository import SongRepository
 
 
 class PlaylistService:
-    def __init__(self, db: Database):
+    def __init__(self):
         self.playlist_repository = PlaylistRepository(db)
         self.song_repository = SongRepository(db)
 

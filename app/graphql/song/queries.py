@@ -5,8 +5,8 @@ from app.services.song_service import SongService
 
 @strawberry.type
 class SongQueries:
-    def __init__(self, info):
-        self.service = SongService(info.context['db'])
+    def __init__(self):
+        self.service = SongService()
 
     @strawberry.field()
     def songs(self) -> List[SongType]:  # Corrigido: List ao invés de []

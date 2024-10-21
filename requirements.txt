@@ -1,0 +1,6 @@
+Flask==3.0.3
+pymongo==4.10.1
+pydantic==2.9.2
+Flask-PyMongo==2.3.0
+python-dotenv==1.0.1
+strawberry-graphql~=0.246.2

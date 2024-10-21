@@ -1,9 +1,10 @@
 from pymongo import MongoClient
+import os
 
-MONGO_URI = "mongodb://root:root@localhost:27017/spotfyql?authSource=admin"
+mongo_uri = os.getenv("MONGO_URI")
 
 def get_db():
-    client = MongoClient(MONGO_URI)
+    client = MongoClient(mongo_uri)
     return client.spotfyql
 
 def test_connection():
