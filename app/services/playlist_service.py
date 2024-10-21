@@ -16,7 +16,7 @@ class PlaylistService:
         return self.playlist_repository.get_all()
 
     def create_playlist(self, playlist) -> Playlist:
-        repository_exists = self.playlist_repository.get_by_criteria({"name": playlist.name})
+        repository_exists = self.playlist_repository.find_one({"name": playlist.name})
 
         if repository_exists:
             raise Exception("Playlist already exists")
@@ -24,10 +24,10 @@ class PlaylistService:
         return self.playlist_repository.create(playlist)
 
     def get_playlist_by_id(self, playlist_id) -> Playlist or None:
-        return self.playlist_repository.get_by_criteria({"_id": playlist_id})
+        return self.playlist_repository.find_one({"_id": playlist_id})
 
     def update_playlist(self, playlist_id, update_data) -> Playlist:
-        playlist_exists = self.playlist_repository.get_by_criteria({"_id": playlist_id})
+        playlist_exists = self.playlist_repository.find_one({"_id": playlist_id})
 
         if not playlist_exists:
             raise Exception("Playlist not found")
@@ -35,8 +35,8 @@ class PlaylistService:
         return self.playlist_repository.update(playlist_id, update_data)
 
     def add_song_to_playlist(self, playlist_id, song_id) -> Playlist:
-        playlist = self.playlist_repository.get_by_criteria({"_id": playlist_id})
-        song = self.song_repository.get_by_criteria({"_id": song_id})
+        playlist = self.playlist_repository.find_one({"_id": playlist_id})
+        song = self.song_repository.find_one({"_id": song_id})
 
         if not playlist or not song:
             raise Exception("Playlist or Song not found")
@@ -46,8 +46,8 @@ class PlaylistService:
         return self.playlist_repository.update(playlist_id, playlist)
 
     def remove_song_from_playlist(self, playlist_id, song_id):
-        playlist = self.playlist_repository.get_by_criteria({"_id": playlist_id})
-        song = self.song_repository.get_by_criteria({"_id": song_id})
+        playlist = self.playlist_repository.find_one({"_id": playlist_id})
+        song = self.song_repository.find_one({"_id": song_id})
 
         if not playlist or not song:
             raise Exception("Playlist or Song not found")
@@ -60,7 +60,7 @@ class PlaylistService:
         return self.playlist_repository.update(playlist_id, playlist)
 
     def delete_playlist(self, playlist_id):
-        playlist_exists = self.playlist_repository.get_by_criteria({"_id": playlist_id})
+        playlist_exists = self.playlist_repository.find_one({"_id": playlist_id})
 
         if not playlist_exists:
             raise Exception("Playlist not found")
