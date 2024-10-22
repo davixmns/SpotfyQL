@@ -1,5 +1,3 @@
-from bson import ObjectId
-
 from app.playlist.playlist import Playlist
 from app.playlist.playlist_repository import PlaylistRepository
 from app.song.song import Song
@@ -24,6 +22,7 @@ class PlaylistService:
     def get_playlist_by_id(self, playlist_id) -> Playlist or None:
         return self.playlist_repository.find_one({"_id": playlist_id})
 
+    # In your PlaylistService
     def add_song_to_playlist(self, playlist_id, song_id) -> Playlist:
         playlist: Playlist = self.playlist_repository.find_one({"_id": playlist_id})
         song: Song = self.song_repository.find_one({"_id": song_id})
@@ -33,7 +32,9 @@ class PlaylistService:
 
         playlist.songs.append(song.id)
 
-        return self.playlist_repository.update(playlist_id, playlist)
+        updated_playlist = self.playlist_repository.update(playlist_id, {"songs": playlist.songs})
+
+        return updated_playlist
 
     def remove_song_from_playlist(self, playlist_id, song_id):
         playlist = self.playlist_repository.find_one({"_id": playlist_id})

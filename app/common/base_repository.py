@@ -18,6 +18,10 @@ class BaseRepository:
         doc = self.collection.find_one(criteria)
         return self.entity_class(**doc) if doc else None
 
+    def find(self, criteria):
+        docs = self.collection.find(criteria)
+        return [self.entity_class(**doc) for doc in docs]
+
     def create(self, entity):
         result = self.collection.insert_one(entity.to_bson())
         entity.id = str(result.inserted_id)
@@ -25,12 +29,16 @@ class BaseRepository:
 
         return entity
 
+    # In your BaseRepository
     def update(self, entity_id, update_data):
-        self.collection.update_one(
+        # Remove '_id' from update_data if it exists
+        update_data.pop("_id", None)
+        updated_entity = self.collection.find_one_and_update(
             {"_id": ObjectId(entity_id)},
-            {"$set": update_data}
+            {"$set": update_data},
+            return_document=True
         )
-        return self.find_one({"_id": ObjectId(entity_id)})
+        return self.entity_class(**updated_entity) if updated_entity else None
 
     def delete(self, entity_id):
         self.collection.delete_one({"_id": ObjectId(entity_id)})

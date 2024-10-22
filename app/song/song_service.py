@@ -1,3 +1,5 @@
+from bson import ObjectId
+
 from app.common.objectid import PydanticObjectId
 from app.song.song_repository import SongRepository
 from app.song.song import Song
@@ -9,6 +11,9 @@ class SongService:
     def get_all_songs(self) -> [Song]:
         songs = self.repository.get_all()
         return songs
+
+    def find_many(self, song_ids) -> [Song]:
+        return self.repository.find({"_id": {"$in": [ObjectId(song_id) for song_id in song_ids]}})
 
     def create_song(self, song) -> Song:
         song_exists = self.repository.find_one({"title": song.title})
