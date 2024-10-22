@@ -7,7 +7,8 @@ class SongService:
         self.repository = SongRepository()
 
     def get_all_songs(self) -> [Song]:
-        return self.repository.get_all()
+        songs = self.repository.get_all()
+        return songs
 
     def create_song(self, song) -> Song:
         song_exists = self.repository.find_one({"title": song.title})

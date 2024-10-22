@@ -10,7 +10,7 @@ class BaseRepository:
 
     def get_all(self):
         docs = self.collection.find()
-        return [self.entity_class.from_dict(doc) for doc in docs]
+        return [self.entity_class(**doc) for doc in docs]
 
     def find_one(self, criteria):
         return self.collection.find_one(criteria)
