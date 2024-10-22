@@ -1,8 +1,8 @@
 import strawberry
-from app.graphql.playlist.queries import PlaylistQueries
-from app.graphql.playlist.mutations import PlaylistMutations
-from app.graphql.song.queries import SongQueries
-from app.graphql.song.mutations import SongMutations
+from app.playlist.graphql.queries import PlaylistQueries
+from app.playlist.graphql.mutations import PlaylistMutations
+from app.song.graphql.queries import SongQueries
+from app.song.graphql.mutations import SongMutations
 
 @strawberry.type
 class Query(PlaylistQueries, SongQueries):

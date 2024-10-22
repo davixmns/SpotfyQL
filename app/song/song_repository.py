@@ -1,5 +1,5 @@
-from app.repositories.base_repository import BaseRepository
-from app.models.song import Song
+from app.common.base_repository import BaseRepository
+from app.song.song import Song
 
 class SongRepository(BaseRepository):
     def __init__(self):

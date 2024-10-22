@@ -13,10 +13,7 @@ class BaseRepository:
         return [self.entity_class.from_dict(doc) for doc in docs]
 
     def find_one(self, criteria):
-        doc = self.collection.find_one(criteria)
-        if not doc:
-            return None
-        return self.entity_class.from_dict(doc)
+        return self.collection.find_one(criteria)
 
     def create(self, entity):
         result = self.collection.insert_one(entity.to_bson())

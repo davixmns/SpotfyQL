@@ -1,8 +1,8 @@
 import strawberry
 
-from app.models.song import Song
-from app.graphql.song.type import SongType
-from app.services.song_service import SongService
+from app.song.song import Song
+from app.song.graphql.type import SongType
+from app.song.song_service import SongService
 
 @strawberry.type
 class SongMutations:

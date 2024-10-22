@@ -1,8 +1,8 @@
 import strawberry
 
-from app.models.playlist import Playlist
-from app.graphql.playlist.type import PlaylistType
-from app.services.playlist_service import PlaylistService
+from app.playlist.playlist import Playlist
+from app.playlist.graphql.type import PlaylistType
+from app.playlist.playlist_service import PlaylistService
 
 @strawberry.type
 class PlaylistMutations:
