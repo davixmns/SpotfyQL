@@ -1,5 +1,8 @@
+from bson import ObjectId
+
 from app.playlist.playlist import Playlist
 from app.playlist.playlist_repository import PlaylistRepository
+from app.song.song import Song
 from app.song.song_repository import SongRepository
 
 class PlaylistService:
@@ -21,22 +24,14 @@ class PlaylistService:
     def get_playlist_by_id(self, playlist_id) -> Playlist or None:
         return self.playlist_repository.find_one({"_id": playlist_id})
 
-    def update_playlist(self, playlist_id, update_data) -> Playlist:
-        playlist_exists = self.playlist_repository.find_one({"_id": playlist_id})
-
-        if not playlist_exists:
-            raise Exception("Playlist not found")
-
-        return self.playlist_repository.update(playlist_id, update_data)
-
     def add_song_to_playlist(self, playlist_id, song_id) -> Playlist:
-        playlist = self.playlist_repository.find_one({"_id": playlist_id})
-        song = self.song_repository.find_one({"_id": song_id})
+        playlist: Playlist = self.playlist_repository.find_one({"_id": playlist_id})
+        song: Song = self.song_repository.find_one({"_id": song_id})
 
         if not playlist or not song:
             raise Exception("Playlist or Song not found")
 
-        playlist.songs.append(song)
+        playlist.songs.append(song.id)
 
         return self.playlist_repository.update(playlist_id, playlist)
 

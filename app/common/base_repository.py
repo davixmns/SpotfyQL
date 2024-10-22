@@ -13,7 +13,10 @@ class BaseRepository:
         return [self.entity_class(**doc) for doc in docs]
 
     def find_one(self, criteria):
-        return self.collection.find_one(criteria)
+        if "_id" in criteria:
+            criteria["_id"] = ObjectId(criteria["_id"])
+        doc = self.collection.find_one(criteria)
+        return self.entity_class(**doc) if doc else None
 
     def create(self, entity):
         result = self.collection.insert_one(entity.to_bson())

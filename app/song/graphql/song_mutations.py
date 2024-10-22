@@ -1,7 +1,7 @@
 import strawberry
 
 from app.song.song import Song
-from app.song.graphql.type import SongType
+from app.song.graphql.song_type import SongType
 from app.song.song_service import SongService
 
 @strawberry.type

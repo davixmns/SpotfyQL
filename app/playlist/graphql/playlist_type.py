@@ -1,7 +1,7 @@
 from typing import List
 
 import strawberry
-from app.song.graphql.type import SongType
+from app.song.graphql.song_type import SongType
 
 @strawberry.type
 class PlaylistType:

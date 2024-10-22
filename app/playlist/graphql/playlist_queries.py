@@ -1,6 +1,6 @@
 import strawberry
 from typing import List
-from app.playlist.graphql.type import PlaylistType
+from app.playlist.graphql.playlist_type import PlaylistType
 from app.playlist.playlist_service import PlaylistService
 
 
